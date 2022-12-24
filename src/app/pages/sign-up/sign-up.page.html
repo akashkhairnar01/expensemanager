@@ -1,9 +1,46 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>signUp</ion-title>
+  <ion-toolbar mode="md">
+    <ion-title class="ion-text-center">Expense Manager</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <ion-grid>
+    <ion-row>
+      <ion-col size-md="6" size-ls="3" offset-md="3">
+        <ion-card>
+          <ion-card-content>
+            <ion-card-title class="ion-text-center">Sign Up</ion-card-title>
+            <ng-container *ngIf="!isOtp; else otpContainer">
+              <ion-row>
+                <ion-col size-md="3" size-sm="4" size-xs="4">
+                  <ion-select (ngModelChange)="codeSelect($event)" [interfaceOptions]="countryCodePopoverSheet"
+                    interface="popover" [(ngModel)]="countryCode">
+                    <ion-select-option *ngFor="let country of countryJson" value={{country.dial_code}}>
+                      {{country.dial_code+' '+country.name}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col>
+                <ion-col size-xs="8" size-sm="8" size-md="9">
+                  <ion-item>
+                    <ion-input type="tel" [(ngModel)]="mobileNo" minlength="10" max="10"
+                      placeholder="Enter mobile number"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+              <ion-button type="submit" (click)="sendOtp()">Request OTP</ion-button>
+            </ng-container>
+            <ng-template #otpContainer>
+              <ion-row>
+                <ion-col>
+                  <ion-input type="otp"></ion-input>
+                </ion-col>
+              </ion-row>
+              </ng-template>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div id="sign-in-button"></div>
 </ion-content>
